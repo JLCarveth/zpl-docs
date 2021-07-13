@@ -13,13 +13,14 @@
 ### Regular Expressions
 |Name|Description|Expression|Examples of Accepted Strings|
 |---|---|---|---|
-|Identifiers|Identifiers are used for naming variables, and must begin with a letter. Identifiers can contain letters and digits only.| `L+(D|L)*`|`a, someVar123, B2`|
+|Identifiers|Identifiers are used for naming variables, and must begin with a letter. Identifiers can contain letters and digits only.| `L(D\|L)*`|`a, someVar123, B2`|
 |String Literal|A string literal is a sequence of 0 or more characters enclosed within double quotes "".|`Q(^EQ)*Q`|`"Hello World!","abc123", "8233gug821313uy"`|
 |Integer Literal|Currently only supports base-10 (decimal) encoding of integer numbers, though octal and hexadecimal encoding wouldn't be too difficult to implement in the future. |`D+`|`123456, 99999999, 1, 0`|
-|Floating-Point Literal|A floating point literal consists of an optional sign preceeding one or more digits, a point, one or more digits, and an optional exponent section. The exponent section consists of an upper or lower case 'E' followed by an optional sign and one or more digits.|`-?D+PD+((E|E)-?D+)?`|`1.00, 1.25e12, -0.245e-2, .5`|
+|Floating-Point Literal|A floating point literal consists of an optional sign preceeding one or more digits, a point, one or more digits, and an optional exponent section. The exponent section consists of an upper or lower case 'E' followed by an optional sign and one or more digits.|`-?D+PD+((E\|E)-?D+)?`|`1.00, 1.25e12, -0.245e-2, .5`|
 |Character Literal|A character literal consists of a character surrounded by single quotes ''.|`C(^EC)C`|`'a', 'A', '1', '{', '_', '?'`|  
 ***
 ## Keywords
+There are numerous keywords reserved for the use of the language. Thus, identifiers cannot have the same name as one of the reserved keywords.
 |Keyword|Purpose|
 |---|---|
 |**Data Types**||
@@ -41,3 +42,9 @@
 |`do`,`while`|Do & Do-while loop keywords.|
 |`for`, `foreach`|For creating loops over a collection or a specific range.|
 |`switch`,`case`,`break`,`continue`, `default`|Keywords required when writing switch statements.|
+|**Program Functions**||
+|`program`|Indicates the starting point of a Zero program.|
+|`function`|Keyword for function declarations.|
+|`return`|Keyword for returning a value from a function.|
+|`write`,`writeLine`|Used for writing information to an output stream (ie., the command line.)|
+|`read`,`readLine`|Used for reading either a single character or an entire line from an input stream respectively.|

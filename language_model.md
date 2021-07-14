@@ -34,6 +34,7 @@ There are numerous keywords reserved for the use of the language. Thus, identifi
 |`boolean`|Used for declaring a variable of type `Boolean`|
 |`String`|Used for declaring a variable of type `String`|
 |`void`|Used to refer to a lack of a type, more specifically the lack of a return type from a function. |
+|`null`|The nullable type, representing the special value NULL.|
 |`enum`|Reserved for future use.|
 |`class`|Reserved for future use.|
 |`new`|Reserved for future use.|

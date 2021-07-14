@@ -21,14 +21,9 @@ Comments can be declared multiple ways. Single-line comments can be declared wit
   ```
 
 Keywords are special identifiers reserved for use by the programming language itself. A list of keywords in the Ziro programming language are as follows:  
-- if, else
-- for, foreach
-- do, while
-- int, float, double, short, byte, char, null, string, array, void
-- writeLine, write, read
-- return
-- break, continue, default, switch, case
-- Class, new
+```
+byte  short  int  long  float  double  char  boolean  String  void  null enum  class  new  if  else  do  while  for  foreach  switch  case  break  continue  default  program  function  return  write  writeLine  read  readLine
+```
 
 ## Datatypes
 Ziro supports all common data types present in other programming languages, with a focus on occupying a minimal ammount of space to represent the data. Any uninitialized data is assigned a `Null` value.

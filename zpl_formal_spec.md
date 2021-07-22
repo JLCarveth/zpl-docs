@@ -137,4 +137,38 @@ Similar to the input statement, reserved keywords `write` and `writeLine` are us
 <output-statement> -> write(STR_T) | write(<identifier>)
 ```
 ## 2.4 Expressions
-### Arithmetic Expressions
+### 2.4.1 Arithmetic Expressions
+```
+<expression>     -> <term> + <expression>
+                  | <term> - <expression>
+                  | <term>
+<term>           -> <factor> * <term>
+                  | <factor> / <term>
+                  | <factor>
+<factor>         -> (<expression>)
+                  | - <expression>
+                  | <literal>
+<literal>         -> INL_T | FPL_T
+```
+### 2.4.2 String Expressions
+```
+<string-expression> -> <primary-string-expression> + <string-expresison>
+<primary-string-expression> -> <string-variable> | SL_T
+```
+### 2.4.3 Conditional Expressions
+```
+<conditional-expression> -> <logical-OR-expression>
+<logical-OR-expression> -> <logical-AND-expression>
+                        | <logical-OR-expression> || <logical-AND-expression>
+<logical-AND-expression> -> <logical-NOT-expression>
+                        | <logical-AND-expression> && <logical-NOT-expression>
+<logical-NOT-expression -> ! <relational-expression>
+                        | <relational-expression>
+<relational-expression> -> <primary-relational-exp> == <primary-relational-exp>
+                        | <primary-relational-exp> != <primary-relational-exp>
+                        | <primary-relational-exp> < <primary-relational-exp>
+                        | <primary-relational-exp> > <primary-relational-exp>
+                        | <primary-relational-exp> <= <primary-relational-exp>
+                        | <primary-relational-exp> >= <primary-relational-exp>
+<primary-relational-exp> -> <integer-variable> | <float-variable> | INL_T | FPL_T
+```

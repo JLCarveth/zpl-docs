@@ -1,11 +1,11 @@
-# Ziro 
+# Zero 
 ## A strictly-typed, modern OOP language
 ### By John L. Carveth
 ---
 ### Getting Started
-Ziro aims to combine the best features of C/C++ and Java programming languages. A performant, memory efficient language with a coherent type system and straightforward object-oriented features.  
+Zero aims to combine the best features of C/C++ and Java programming languages. A performant, memory efficient language with a coherent type system and straightforward object-oriented features.  
   
-Ziro files use the either `.z` or `.zo` file extensions. Let's look at a "Hello World" program written in Ziro:
+Zero files use the either `.z` or `.zo` file extensions. Let's look at a "Hello World" program written in Zero:
 ```
 program Main {
     Console.writeLine("Hello World!");

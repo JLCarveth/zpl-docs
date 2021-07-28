@@ -1,4 +1,4 @@
-# Ziro Language Model
+# Zero Language Model
 ### Regular Expression Lexeme Classes
 |||
 |---|---|

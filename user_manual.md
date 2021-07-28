@@ -1,7 +1,7 @@
-# Ziro User Manual
+# Zero User Manual
 
-## About the Ziro Programming Language
-Ziro is a type-safe, object-oriented programming language which idealizes modern programming conventions while remaining relatively low-level. Ziro takes inspiration and design cues from a number of languages. For example, the way Ziro handles for loops is inspired by Kotlin. The syntax of Ziro is designed so that anyone familiar with a popular language such as Java, C/C++ should feel right at home. 
+## About the Zero Programming Language
+Zero is a type-safe, object-oriented programming language which idealizes modern programming conventions while remaining relatively low-level. Zero takes inspiration and design cues from a number of languages. For example, the way Zero handles for loops is inspired by Kotlin. The syntax of Zero is designed so that anyone familiar with a popular language such as Java, C/C++ should feel right at home. 
 
 ## Comments and Keywords
 Comments can be declared multiple ways. Single-line comments can be declared with two forward slashes `//`. Multiline comments begin with `/*` and end with `*/`.
@@ -20,13 +20,13 @@ Comments can be declared multiple ways. Single-line comments can be declared wit
   */
   ```
 
-Keywords are special identifiers reserved for use by the programming language itself. A list of keywords in the Ziro programming language are as follows:  
+Keywords are special identifiers reserved for use by the programming language itself. A list of keywords in the Zero programming language are as follows:  
 ```
 byte  short  int  long  float  double  char  boolean  String  void  null enum  class  new  if  else  do  while  for  foreach  switch  case  break  continue  default  program  function  return  write  writeLine  read  readLine
 ```
 
 ## Datatypes
-Ziro supports all common data types present in other programming languages, with a focus on occupying a minimal ammount of space to represent the data. Any uninitialized data is assigned a `Null` value.
+Zero supports all common data types present in other programming languages, with a focus on occupying a minimal ammount of space to represent the data. Any uninitialized data is assigned a `Null` value.
 |Type Name| Size in Memory (Bits)|Value Range| Additonal Info | Equivalent C Datatype
 |---|---|---|---|---|
 Integer| 32 | [-2<sup>31</sup>, 2<sup>31</sup>]|Basic 32-bit signed integer.|`int`|
@@ -56,7 +56,7 @@ if (x < 10)
 }
 ```
 ### Interaction
-Ziro offers the same loops as seen in many other languages, `for`, `while`, `do while` being some examples. These loops follow a common syntax as well:
+Zero offers the same loops as seen in many other languages, `for`, `while`, `do while` being some examples. These loops follow a common syntax as well:
 ```
 /* A while loop */
 while (<conditional_statement>) 
@@ -74,7 +74,7 @@ for (Integer i = 0; i < x; i++)
 }
 ```
 
-In addition to these common loops, Ziro also offers a `foreach` loop which can be executed on any Iterable object (Arrays, or other classes extending Iterable):
+In addition to these common loops, Zero also offers a `foreach` loop which can be executed on any Iterable object (Arrays, or other classes extending Iterable):
 ```
 foreach (String s : arrayOfStrings) 
 {
@@ -83,7 +83,7 @@ foreach (String s : arrayOfStrings)
 ```
 
 ### Input
-Ziro will come with a built-in class `Console` which interfaces with `printf` and `scanf` in order to provide proper input functionality. For input specifically, `Console` has the following relevant functionality:
+Zero will come with a built-in class `Console` which interfaces with `printf` and `scanf` in order to provide proper input functionality. For input specifically, `Console` has the following relevant functionality:
 ```
 Console.readLine() : String
 ```

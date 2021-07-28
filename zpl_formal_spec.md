@@ -53,17 +53,88 @@ Separators are recognized as a `SEP_T` token, with the specific separator type s
 ```
 Arithmetic operators produce an `ART_T` token.
 ```
-<arithmetic_operator> -> { +, -, /, * }
+<arithmetic_operator> -> one of { +, -, /, * }
 ```
 Logical operators produce a `LOG_OP_T` token.
 ```
-<logical_operator> -> { &&, ||, ! }
+<logical_operator> -> one of { &&, ||, ! }
 ```
 Relational operators produce the `REL_OP_T` token.
 ```
-<relational_operator> -> { <, >, <=, >=, ==, != }
+<relational_operator> -> one of { <, >, <=, >=, ==, != }
 ```
 The assignment operator produces the `ASS_OP_T` token.
 ```
 <assignment_operator> -> =
 ```
+## 2.0 ZPL Syntactic Specification
+### 2.1.1 ZPL Program
+A ZPL program consists of the `program` keyword, an identifier, and one or more statements contained within curly-braces:
+```
+<program> -> program <identifier> { <statements> }
+```
+## 2.2 Variable Declarations
+Variable declarations must have a data type and an identifier. Multiple variables can be declared in a list by separating the identifiers with a comma.
+```
+<variable-declaration> -> <datatype> <varlist>
+<varlist> -> <varlist> , <identifier> | <identifier>
+```
+## 2.3 Statements
+```
+<opt-statements> -> <statements> | ε
+<statements> -> <statement> | <statements> <statement>
+<statement> -> <assignment-statement>
+              | <selection-statement>
+              | <input-statement>
+              | <output-statement>
+```
+### Assignment Statement
+An assignment statement is used to assign a value to a variable. An assignment statement is composed of an assignment expression:
+```
+<assignment-statement> -> <assignment-expression>
+<assignment-expression> -> <identifier> = <expression>
+```
+### Selection Statements
+ZPL supports `if/else` and `switch` selection statements. 
+```
+<selection-statement>   -> <if-statement>
+                          | <if-else-statement>
+                          | <switch-statement>
+<if-statement>          -> if (<conditional-expression>) { <opt-statements> }
+<else-statement>        -> else { <opt-statements> }
+<if-else-statement>     -> <if-statement> <else-statement>
+<if-else-statement>     -> <if-statement> else <if-else-statements>
+<if-else-statements>    -> <if-statement> | <if-else-statements> else <if-statement>
+<switch-statement>      -> switch (<identifier>) <switch-block>
+<switch-block>          -> { <case-blocks> }
+<case-blocks>           -> <case-block> | <case-blocks> <case-block>
+<case-block>            -> case <constant> : <opt-statements>
+                          | default : <opt-statements>
+```
+### Iteration Statements
+ZPL supports `do/while` loops, as well as `for` and `foreach` loops.
+```
+<iteration-statement>   -> <while-statement>
+                         | <do-while-statement>
+                         | <for-statement>
+                         | <foreach-statement>
+<while-statement>       -> while (<conditional-expression>) { <opt-statements> }
+<do-while-statement>    -> do <statement> while (<conditional-expression>) ;
+<for-statement>         -> for ( <assignment-expression>; <conditional-expression>; <arithmetic-expression> ) { <opt-statements> }
+<foreach-statement>     -> foreach (<identifier> in <list-group>) { <opt-statements> }
+<list-group>            -> <identifier> | <varlist>
+```
+### Input Statement
+Input is performed by using the `read` or `readLine` reserved keyword. The value read from the input stream is stored in the variable on the left side of the assignment expression.
+```
+<input-statement>       -> <left-side> = read();
+                         | <left-side> = readLine();
+<left-side>             -> <identifier> | <variable-declaration>
+```
+### Output Statement
+Similar to the input statement, reserved keywords `write` and `writeLine` are used to write to an output stream.
+```
+<output-statement> -> write(STR_T) | write(<identifier>)
+```
+## 2.4 Expressions
+### Arithmetic Expressions

@@ -1,4 +1,6 @@
 # The Zero Programming Language Formal Specification  
+## 1.0 Introduction
+This document outlines the language specification for the ***Zero Programming Language***. 
 ## 1.1 - ZPL Basic Elements
 ### 1.1.1 - Whitespace
 While there are more characters recognized by C/ASCII as whitespace, they serve no function in modern programs and thus will not be supported by the language.
@@ -9,15 +11,19 @@ Whitespace characters are ignored by the compiler, and is only necessary when se
 ### 1.1.2 - Comments
 ZPL supports both single line comments beginning with `//`, and multiline comments surrounded with `/* */`.
 ```
-<comment> -> // { sequence of ASCII chars }
-        |    /* { sequence of ASCII chars } */
+<comment> -> // { one or more ASCII characters }
+           | /* { one or more ASCII chars or newline } */
+
 ```
 ### 1.1.3 - Identifiers
 Identifiers are used to uniquely identify variables, functions, classes, and enumerations. Identifiers produce the `ID_T` token when detected by the scanner.
+```
+<variable-identifier> -> ID_T
+```
 ### 1.1.4 - Keywords
 Keywords are defined by the token code `KW_T`, with the specific keyword being saved as an index to the ketword table. 
 ```
-<keyword> -> "byte" | "short" | "int" | "long" | "float" | "double" | "char" | "boolean" | "String" | "void" | "null" | "enum" | "class" | "new" | "if" | "else" | "do" | "while" | "for" | "foreach" | "switch" | "case" | "break" | "continue" | "default" | "program" | "function" | "return" | "write" | "writeLine" | "read" | "readLine"
+<keyword> -> { "byte" , "short" ,"int", "long", "float", "double", "char", "boolean", "String", "void", "null", "enum", "class", "new", "if", "else", "do", "while", "for", "foreach", "switch", "case", "break", "continue", "default", "program", "function", "return", "write", "writeLine", "read", "readLine" } -> KW_T
 ```
 ### 1.1.5 - Integer Literals
 The scanner recognizes integer literals as a token of type `INT_T`. The value of the integer is stored as an attribute.
@@ -41,7 +47,7 @@ Character literals recognized by the `CL_T` token.
 ```
 ### 1.1.9 - Separators
 ```
-<separator> -> one of { } [ ] ( ) , . : ;
+<separator> = one of { } [ ] ( ) , . : ; -> SEP_T
 ```
 Separators are recognized as a `SEP_T` token, with the specific separator type specified by an enum attribute. 
 ### 1.1.10 - Operators
@@ -73,12 +79,15 @@ A ZPL program consists of the `program` keyword, an identifier, and one or more 
 ```
 <program> -> program <identifier> { <statements> }
 ```
+**First Set:** `FIRST(<program>) = { KW_T(program) }`
 ## 2.2 Variable Declarations
 Variable declarations must have a data type and an identifier. Multiple variables can be declared in a list by separating the identifiers with a comma.
 ```
 <variable-declaration> -> <datatype> <varlist>
+<datatype> -> short | int | long | float | double | String | char | ID_T
 <varlist> -> <varlist> , <identifier> | <identifier>
 ```
+**First Set:** `FIRST(<variable-declaration>) = { KW_T, ID_T }`
 ## 2.3 Statements
 ```
 <opt-statements> -> <statements> | ε
@@ -88,12 +97,14 @@ Variable declarations must have a data type and an identifier. Multiple variable
               | <input-statement>
               | <output-statement>
 ```
+**First Set:** `FIRST(<statements>) = { ID_T, KW_T }`
 ### Assignment Statement
 An assignment statement is used to assign a value to a variable. An assignment statement is composed of an assignment expression:
 ```
 <assignment-statement> -> <assignment-expression>
 <assignment-expression> -> <identifier> = <expression>
 ```
+**First Set:** `FIRST(<assignment-statement>) = { ID_T }`
 ### Selection Statements
 ZPL supports `if/else` and `switch` selection statements. 
 ```
@@ -111,6 +122,7 @@ ZPL supports `if/else` and `switch` selection statements.
 <case-block>            -> case <constant> : <opt-statements>
                           | default : <opt-statements>
 ```
+**First Set:** `FIRST(<selection-statement>) = { KW_T }`
 ### Iteration Statements
 ZPL supports `do/while` loops, as well as `for` and `foreach` loops.
 ```
@@ -124,6 +136,7 @@ ZPL supports `do/while` loops, as well as `for` and `foreach` loops.
 <foreach-statement>     -> foreach (<identifier> in <list-group>) { <opt-statements> }
 <list-group>            -> <identifier> | <varlist>
 ```
+**First Set:** `FIRST(<iteration-statement>) = { KW_T }`
 ### Input Statement
 Input is performed by using the `read` or `readLine` reserved keyword. The value read from the input stream is stored in the variable on the left side of the assignment expression.
 ```
@@ -131,6 +144,7 @@ Input is performed by using the `read` or `readLine` reserved keyword. The value
                          | <left-side> = readLine();
 <left-side>             -> <identifier> | <variable-declaration>
 ```
+**First Set:** `FIRST(<input-statement>) = { ID_T, KW_T }`
 ### Output Statement
 Similar to the input statement, reserved keywords `write` and `writeLine` are used to write to an output stream.
 ```

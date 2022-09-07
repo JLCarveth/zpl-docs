@@ -87,7 +87,15 @@ Variable declarations must have a data type and an identifier. Multiple variable
 <datatype> -> short | int | long | float | double | String | char | ID_T
 <varlist> -> <varlist> , <identifier> | <identifier>
 ```
-**First Set:** `FIRST(<variable-declaration>) = { KW_T, ID_T }`
+In the above grammar, `<varlist>` has a left-recursion we must resolve:
+```
+<varlist> -> <identifier> <varlistPrime>
+<varlistPrime> -> , <identifier> <varlistPrime>
+                | ε
+```
+
+**First Set:** `FIRST(<variable-declaration>) = { KW_T, ID_T }`  
+
 ## 2.3 Statements
 ```
 <opt-statements> -> <statements> | ε
@@ -164,9 +172,19 @@ Similar to the input statement, reserved keywords `write` and `writeLine` are us
                   | <literal>
 <literal>         -> INL_T | FPL_T
 ```
+
+An equivalent grammar which eliminates left-recursion:
+```
+<expression>        -> <term><expressionPrime>
+<expressionPrime>   -> +<term><expressionPrime> | - <term><expressionPrime> | ε
+<term>              -> <term><factorPrime> // RECURSION?
+<factorPrime>       -> *<term><factorPrime> | /<term><factorPrime> | <factor>
+<factor>            -> (<expression>) | -<expression> | <literal>
+<literal>           -> INL_T | FPL_T
+```
 ### 2.4.2 String Expressions
 ```
-<string-expression> -> <primary-string-expression> + <string-expresison>
+<string-expression> -> <primary-string-expression> + <string-expression>
 <primary-string-expression> -> <string-variable> | SL_T
 ```
 ### 2.4.3 Conditional Expressions

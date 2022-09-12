@@ -77,7 +77,7 @@ The assignment operator produces the `ASS_OP_T` token.
 ### 2.1.1 ZPL Program
 A ZPL program consists of the `program` keyword, an identifier, and one or more statements contained within curly-braces:
 ```
-<program> -> program <identifier> { <statements> }
+<program> -> program <identifier> { <opt-statements> }
 ```
 **First Set:** `FIRST(<program>) = { KW_T(program) }`
 ## 2.2 Variable Declarations

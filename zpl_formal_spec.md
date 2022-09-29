@@ -173,15 +173,6 @@ Similar to the input statement, reserved keywords `write` and `writeLine` are us
 <literal>         -> INL_T | FPL_T
 ```
 
-An equivalent grammar which eliminates left-recursion:
-```
-<expression>        -> <term><expressionPrime>
-<expressionPrime>   -> +<term><expressionPrime> | - <term><expressionPrime> | ε
-<term>              -> <term><factorPrime> // RECURSION?
-<factorPrime>       -> *<term><factorPrime> | /<term><factorPrime> | <factor>
-<factor>            -> (<expression>) | -<expression> | <literal>
-<literal>           -> INL_T | FPL_T
-```
 ### 2.4.2 String Expressions
 ```
 <string-expression> -> <primary-string-expression> + <string-expression>

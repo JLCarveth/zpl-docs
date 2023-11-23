@@ -208,12 +208,14 @@ An equivalent grammar which eliminates left-recursion:
 ```
 <expression>        -> <term><expressionPrime>
 <expressionPrime>   -> +<term><expressionPrime> | - <term><expressionPrime> | ε
-<term>              -> <term><factorPrime> // RECURSION?
 <term>              -> <factor><termPrime>
 <termPrime>         -> * <factor> <termPrime> | / <factor> <termPrime> | ε
 <factor>            -> (<expression>) | -<expression> | <literal>
 <literal>           -> INL_T | FPL_T
 ```
+
+**First Set:** 
+- `FIRST(<expression>) = FIRST(<term>) = FIRST(<factor>) = { '(', '-', INL_T, FPL_T }`
 ### 2.4.2 String Expressions
 ```
 <string-expression> -> <primary-string-expression> + <string-expression>

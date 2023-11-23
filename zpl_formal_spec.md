@@ -21,9 +21,40 @@ Identifiers are used to uniquely identify variables, functions, classes, and enu
 <variable-identifier> -> ID_T
 ```
 ### 1.1.4 - Keywords
-Keywords are defined by the token code `KW_T`, with the specific keyword being saved as an index to the ketword table. 
+Keywords are defined by the token code `KW_T`, with the specific keyword being saved as an index to the keyword table. 
 ```
-<keyword> -> { "byte" , "short" ,"int", "long", "float", "double", "char", "boolean", "String", "void", "null", "enum", "class", "new", "if", "else", "do", "while", "for", "foreach", "switch", "case", "break", "continue", "default", "program", "function", "return", "write", "writeLine", "read", "readLine" } -> KW_T
+<keyword> -> { "byte",
+    "short",
+    "int",
+    "long",
+    "float",
+    "double",
+    "char",
+    "boolean",
+    "String",
+    "void",
+    "null",
+    "enum",
+    "class",
+    "new",
+    "if",
+    "else",
+    "do",
+    "while",
+    "for",
+    "foreach",
+    "switch",
+    "case",
+    "break",
+    "continue",
+    "default",
+    "program",
+    "function",
+    "return",
+    "write",
+    "writeLine",
+    "read",
+    "readLine" } -> KW_T
 ```
 ### 1.1.5 - Integer Literals
 The scanner recognizes integer literals as a token of type `INT_T`. The value of the integer is stored as an attribute.
@@ -178,7 +209,8 @@ An equivalent grammar which eliminates left-recursion:
 <expression>        -> <term><expressionPrime>
 <expressionPrime>   -> +<term><expressionPrime> | - <term><expressionPrime> | ε
 <term>              -> <term><factorPrime> // RECURSION?
-<factorPrime>       -> *<term><factorPrime> | /<term><factorPrime> | <factor>
+<term>              -> <factor><termPrime>
+<termPrime>         -> * <factor> <termPrime> | / <factor> <termPrime> | ε
 <factor>            -> (<expression>) | -<expression> | <literal>
 <literal>           -> INL_T | FPL_T
 ```

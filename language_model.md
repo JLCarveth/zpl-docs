@@ -24,28 +24,26 @@ There are numerous keywords reserved for the use of the language. Thus, identifi
 |Keyword|Purpose|
 |---|---|
 |**Data Types**||
-|`byte`|Used for declaring a variable of type `Byte`|
-|`short`|Used for declaring a variable of type `Short`|
-|`int`|Used for declaring a variable of type `Integer`|
-|`long`|Used for declaring a variable of type `Long`|
-|`float`|Used for declaring a variable of type `Float`|
-|`double`|Used for declaring a variable of type `Double`|
-|`char`|Used for declarign a variable of type `Char`|
-|`boolean`|Used for declaring a variable of type `Boolean`|
-|`String`|Used for declaring a variable of type `String`|
-|`void`|Used to refer to a lack of a type, more specifically the lack of a return type from a function. |
-|`null`|The nullable type, representing the special value NULL.|
-|`enum`|Reserved for future use.|
-|`class`|Reserved for future use.|
-|`new`|Reserved for future use.|
-|**Loops / Flow-Control**||
-|`if`,`else`|Traditional conditional loop keywords.|
-|`do`,`while`|Do & Do-while loop keywords.|
-|`for`, `foreach`|For creating loops over a collection or a specific range.|
-|`switch`,`case`,`break`,`continue`, `default`|Keywords required when writing switch statements.|
-|**Program Functions**||
-|`program`|Indicates the starting point of a Zero program.|
-|`function`|Keyword for function declarations.|
-|`return`|Keyword for returning a value from a function.|
-|`write`,`writeLine`|Used for writing information to an output stream (ie., the command line.)|
-|`read`,`readLine`|Used for reading either a single character or an entire line from an input stream respectively.|
+|`byte`|8-bit signed integer type|
+|`short`|16-bit signed integer type|
+|`int`|32-bit signed integer type|
+|`long`|64-bit signed integer type|
+|`float`|32-bit IEEE 754 floating-point type|
+|`double`|64-bit IEEE 754 floating-point type|
+|`char`|Character type (single ASCII character)|
+|`bool`|Boolean type (true/false)|
+|`void`|Used for functions that do not return a value|
+|**Control Flow**||
+|`if`,`else`|Conditional statement keywords|
+|`do`,`while`|Loop keywords for do-while and while loops|
+|`for`|For loop keyword|
+|`switch`,`case`,`break`,`continue`, `default`|Switch statement keywords|
+|**Program Structure**||
+|`program`|Indicates the entry point of a ZPL program|
+|`function`|Keyword for function declarations|
+|`return`|Keyword for returning a value from a function|
+|**Input/Output**||
+|`write`,`writeLine`|Used for writing to output stream (writeLine adds newline)|
+|`read`,`readLine`|Used for reading from input stream (read: single char, readLine: entire line)|
+
+**Note:** The following keywords have been removed from the language to maintain simplicity: `null`, `enum`, `class`, `new`, `foreach`, `boolean` (replaced with `bool`), `String` (use `char[]` arrays instead).

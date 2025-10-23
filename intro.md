@@ -1,27 +1,33 @@
-# Zero 
-## A strictly-typed, modern OOP language
+# Zero (ZPL)
+## A Simple, C-like Procedural Language
 ### By John L. Carveth
 ---
 ### Getting Started
-Zero aims to combine the best features of C/C++ and Java programming languages. A performant, memory efficient language with a coherent type system and straightforward object-oriented features.  
-  
-Zero files use the either `.z` or `.zo` file extensions. Let's look at a "Hello World" program written in Zero:
+Zero (ZPL) is a simple, statically-typed procedural programming language inspired by C. It features a clean syntax, type safety, and straightforward control flow constructs, making it ideal for learning compiler construction and systems programming concepts.
+
+Zero source files use the `.zpl` file extension. Let's look at a "Hello World" program written in Zero:
 ```
 program Main {
-    Console.writeLine("Hello World!");
+    writeLine("Hello World!");
 }
 ```
 
-The `program` keywords indicates an entry point, ie. a main method where the program begins execution. The name `Main` indicates the target output name. A program declaration is followed by curly braces `{}` and 0 or more statements. In the Hello World example, we are executing a static method `writeLine` from the `Console` class to print a string.
+The `program` keyword indicates an entry point (similar to `main()` in C) where the program begins execution. The name `Main` is the program identifier. A program declaration is followed by curly braces `{}` containing zero or more statements. In the Hello World example, we use the built-in `writeLine` keyword to print a string to the output stream.
 
-### Challenges & Solutions
-These will be a couple challenges I can see immediately with developing this language:
-- Storing Arrays
-- Parsing Datatypes properly, storing strings
-- Properly avoiding primitives
-- Handling the class heirarchy, especially inheritance
+### Language Features
+ZPL includes the following features:
+- **Primitive Types**: byte, short, int, long, float, double, char, bool
+- **Arrays**: Fixed-size, single-dimensional arrays with compile-time size specification
+- **Functions**: User-defined functions with parameters and return values
+- **Control Flow**: if/else, switch, while, do-while, for loops
+- **I/O**: Built-in read/readLine and write/writeLine keywords for input/output
+- **Operators**: Arithmetic (+, -, *, /, %), logical (&&, ||, !), relational (<, >, <=, >=, ==, !=), unary (++, --)
 
-Arrays should be relatively straightforward. Simply allocate enough memory for the given type and size of the array, as arrays *need* a type and size. Storing strings will be dependent on the buffer that will be reading the source code. If it cannot store the entire string then an error must be thrown.  
-When a type is detected it should be parsed, and a relevant type object properly initialized. For example, `1.40993` would be detected as a floating point number, and a Float struct would be created accordingly.  
-  
-  Class heirarchy should be tracked using a tree data structure. The root of this tree would be a base `Object` class, similar to Java. The built-in classes will be extended from `Object` as needed.
+### Implementation Considerations
+Key implementation aspects for the ZPL compiler:
+- **Type Safety**: All variables must be declared with explicit types before use
+- **Static Typing**: Type checking performed at compile time
+- **Array Handling**: Arrays require compile-time constant sizes and use 0-based indexing
+- **String Handling**: Strings are represented as char arrays (e.g., `char[100]`)
+- **Function Scope**: Functions must be declared before the program block
+- **No OOP**: The language is procedural - no classes, objects, or inheritance

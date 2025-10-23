@@ -1,96 +1,266 @@
-# Zero User Manual
+# ZPL (Zero Programming Language) User Manual
 
 ## About the Zero Programming Language
-Zero is a type-safe, object-oriented programming language which idealizes modern programming conventions while remaining relatively low-level. Zero takes inspiration and design cues from a number of languages. For example, the way Zero handles for loops is inspired by Kotlin. The syntax of Zero is designed so that anyone familiar with a popular language such as Java, C/C++ should feel right at home. 
+Zero (ZPL) is a simple, statically-typed procedural programming language with a C-like syntax. It is designed to be straightforward to implement and understand, making it ideal for learning compiler construction. The syntax is familiar to anyone who has experience with C, Java, or similar languages, focusing on clarity and simplicity over advanced features. 
 
-## Comments and Keywords
-Comments can be declared multiple ways. Single-line comments can be declared with two forward slashes `//`. Multiline comments begin with `/*` and end with `*/`.
-  
-  - **Self-Documenting Comments:** Similar to Javadoc comments in the Java language, comments on methods, fields, and classes that begin with `/**` are self-documenting comments, allowing the compiler to generate documentation for the source code. A seperate compiler 'mode' would parse these comments and generate HTML or Markdown documentation based on the elements they preceed.
+## Comments
+ZPL supports two types of comments:
+- **Single-line comments:** Begin with `//` and continue to the end of the line
+- **Multi-line comments:** Begin with `/*` and end with `*/`
 
-  ```
-  // This is a one-line comment
-  Integer i = new Integer(20);
-  /*
-    Anything between a multiline comment
-    is ignored
-    by
-    the
-    compiler!
-  */
-  ```
-
-Keywords are special identifiers reserved for use by the programming language itself. A list of keywords in the Zero programming language are as follows:  
 ```
-byte  short  int  long  float  double  char  boolean  String  void  null enum  class  new  if  else  do  while  for  foreach  switch  case  break  continue  default  program  function  return  write  writeLine  read  readLine
+// This is a single-line comment
+int x = 5;
+
+/*
+   This is a multi-line comment.
+   Everything between the delimiters
+   is ignored by the compiler.
+*/
 ```
 
-## Datatypes
-Zero supports all common data types present in other programming languages, with a focus on occupying a minimal ammount of space to represent the data. Any uninitialized data is assigned a `Null` value.
-|Type Name| Size in Memory (Bits)|Value Range| Additonal Info | Equivalent C Datatype
-|---|---|---|---|---|
-Integer| 32 | [-2<sup>31</sup>, 2<sup>31</sup>]|Basic 32-bit signed integer.|`int`|
-Short | 16 | [-2<sup>15</sup>, 2<sup>15</sup>]|16-bit signed short integer.|`short int`|
-Long | 64 | [-2<sup>63</sup>, 2<sup>63</sup>] | 64-bit signed long integer |`long`|
-Byte | 8 | [-2<sup>7</sup>, 2<sup>7</sup>]| Represents a single byte|`char`|
-Boolean | 1 | [0,1]| Represents True / False or a single bit of data|`char`|
-Float | 32 | N/A | IEEE 754 Single-precision floating point format|`float`|
-Double | 64 | N/A | IEEE 754 Double-precision floating point format|`double`|
-String | N/A| N/A | Represents a string of characters. Length of the string is limited by the size of the buffer being used to read the source code. ANSI C uses a limit of 509 characters.|`char*`|
-Array | 64 | N/A | Represents a multitude of elements of a single type. The array will occupy `(n * sizeof(T))` in space, where `n` is the number of elements in the array and `T` is the type being stored in the array.|`void*`|
+## Keywords
+Keywords are special identifiers reserved for use by the programming language. A list of keywords in ZPL:
+```
+byte  short  int  long  float  double  char  bool  void
+if  else  do  while  for  switch  case  break  continue  default
+program  function  return
+write  writeLine  read  readLine
+```
+
+Variables and functions cannot be named using these reserved keywords.
+
+## Data Types
+ZPL supports primitive data types common in C-like languages. All variables must be declared with a type before use.
+
+|Type Name| Size (bits) | Value Range | Description | C Equivalent |
+|---------|-------------|-------------|-------------|--------------|
+|`byte`   | 8  | [-128, 127] | 8-bit signed integer | `char` |
+|`short`  | 16 | [-32768, 32767] | 16-bit signed integer | `short` |
+|`int`    | 32 | [-2³¹, 2³¹-1] | 32-bit signed integer | `int` |
+|`long`   | 64 | [-2⁶³, 2⁶³-1] | 64-bit signed integer | `long` |
+|`float`  | 32 | ±3.4×10³⁸ | IEEE 754 single-precision float | `float` |
+|`double` | 64 | ±1.7×10³⁰⁸ | IEEE 754 double-precision float | `double` |
+|`char`   | 8  | ASCII characters | Single character | `char` |
+|`bool`   | 8  | true/false (0 or 1) | Boolean value | `char` |
+
+### Arrays
+Arrays are declared by specifying a size in square brackets:
+```
+int numbers[10];      // Array of 10 integers
+char name[50];        // Character array (string)
+float values[100];    // Array of 100 floats
+```
+- Arrays must have a compile-time constant size
+- Arrays use 0-based indexing
+- Elements are accessed using square brackets: `numbers[0]`, `name[5]`
 
 ## Statements
-### Assignment
-Assignment syntax is very similar to Java. A type declaration is followed by the variable name. Initializing that variable involves using `=` and assigning a value valid for the declared type. For example:
+
+### Variable Declaration and Assignment
+Variables must be declared with a type before use. Declaration can optionally include initialization:
 ```
-String str = "Hello World!";
+int x;              // Declaration only
+int y = 10;         // Declaration with initialization
+float pi = 3.14159;
+char letter = 'A';
+bool flag = true;
 ```
-`String` is the type of variable `str`, and we are assigning a value of `Hello World!` to this variable. 
-### Selection
-Selection (if) statements are again quite similar to many popular programming languages.
-The keyword `if` is followed by a boolean statement surrounded by parentheses. The scope of the if statement is delimited by curly braces `{}`.
+
+Assignment to an existing variable:
 ```
-if (x < 10)
-{
-  // Some statements here...
+x = 5;              // Assign value to x
+y = x + 10;         // Assign expression result
+```
+
+Array element assignment:
+```
+int arr[5];
+arr[0] = 10;
+arr[1] = arr[0] * 2;
+``` 
+### Selection Statements
+
+#### If/Else Statements
+The `if` keyword is followed by a boolean expression in parentheses. The body is enclosed in curly braces:
+```
+if (x < 10) {
+    writeLine("x is less than 10");
+}
+
+if (y > 0) {
+    writeLine("y is positive");
+} else {
+    writeLine("y is not positive");
+}
+
+// Else-if chains
+if (score >= 90) {
+    writeLine("Grade: A");
+} else if (score >= 80) {
+    writeLine("Grade: B");
+} else if (score >= 70) {
+    writeLine("Grade: C");
+} else {
+    writeLine("Grade: F");
 }
 ```
-### Interaction
-Zero offers the same loops as seen in many other languages, `for`, `while`, `do while` being some examples. These loops follow a common syntax as well:
+
+#### Switch Statements
+The `switch` statement allows multi-way branching:
 ```
-/* A while loop */
-while (<conditional_statement>) 
-{
-    // Some statements here...
+switch (day) {
+    case 1:
+        writeLine("Monday");
+        break;
+    case 2:
+        writeLine("Tuesday");
+        break;
+    default:
+        writeLine("Other day");
+        break;
 }
-/* A do while loop */
+```
+
+### Iteration Statements
+
+#### While Loop
+```
+int i = 0;
+while (i < 10) {
+    writeLine(i);
+    i++;
+}
+```
+
+#### Do-While Loop
+Executes at least once before checking the condition:
+```
+int i = 0;
 do {
-    // Some statements here...
-} while (<conditional_statement>);
-/* A for loop */
-for (Integer i = 0; i < x; i++)
-{
-    // Some statements here...
+    writeLine(i);
+    i++;
+} while (i < 10);
+```
+
+#### For Loop
+```
+for (int i = 0; i < 10; i++) {
+    writeLine(i);
+}
+
+// Can use existing variable
+int j;
+for (j = 0; j < 5; j++) {
+    writeLine(j * 2);
 }
 ```
 
-In addition to these common loops, Zero also offers a `foreach` loop which can be executed on any Iterable object (Arrays, or other classes extending Iterable):
+**Loop Control:**
+- `break`: Exit the loop immediately
+- `continue`: Skip to the next iteration
+
+### Input/Output
+
+#### Output
+ZPL provides built-in keywords for output:
+- `write(expression)` - Outputs the value of an expression without a newline
+- `writeLine(expression)` - Outputs the value and adds a newline
+
 ```
-foreach (String s : arrayOfStrings) 
-{
-    // Some statements here...
+writeLine("Hello, World!");
+write("Enter a number: ");
+
+int x = 42;
+writeLine(x);           // Outputs: 42
+
+float pi = 3.14159;
+writeLine(pi);          // Outputs: 3.14159
+```
+
+#### Input
+Input keywords return values that must be assigned to variables:
+- `read()` - Reads a single character
+- `readLine()` - Reads an entire line (stores as char array)
+
+```
+char ch;
+ch = read();            // Read single character
+
+int num;
+write("Enter a number: ");
+num = read();           // Read integer from input
+
+char name[50];
+write("Enter your name: ");
+name = readLine();      // Read line into char array
+```
+
+## Functions
+Functions are declared using the `function` keyword, followed by the return type, name, parameters, and body:
+
+```
+function int add(int a, int b) {
+    return a + b;
+}
+
+function void printGreeting(char name[]) {
+    write("Hello, ");
+    writeLine(name);
+}
+
+function int factorial(int n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
 }
 ```
 
-### Input
-Zero will come with a built-in class `Console` which interfaces with `printf` and `scanf` in order to provide proper input functionality. For input specifically, `Console` has the following relevant functionality:
+**Key points:**
+- Functions must be declared before the `program` block
+- Return type can be any data type or `void` (no return value)
+- Array parameters use `[]` without a size
+- Functions can be called recursively
+
+## Complete Example Program
+
 ```
-Console.readLine() : String
+function int max(int a, int b) {
+    if (a > b) {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+function void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        write(arr[i]);
+        write(" ");
+    }
+    writeLine("");
+}
+
+program Example {
+    int numbers[5];
+
+    // Fill array
+    for (int i = 0; i < 5; i++) {
+        numbers[i] = i * 10;
+    }
+
+    // Print array
+    writeLine("Array contents:");
+    printArray(numbers, 5);
+
+    // Find maximum
+    int maximum = numbers[0];
+    for (int i = 1; i < 5; i++) {
+        maximum = max(maximum, numbers[i]);
+    }
+
+    write("Maximum value: ");
+    writeLine(maximum);
+}
 ```
-This function is essentially `scanf("%s", str);` with `str` being the value returned as a `String` object.
-### Output
-Similar to input, `Console` provides the relevant functionality to print information to the console.
-```
-Console.writeLine("Hello World!");
-```
-This function is equivalent to running `printf("Hello World!\n");` in C. A `Console.write()` exists if the programmer does not want to write to a new line.
